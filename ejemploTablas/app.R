@@ -1,4 +1,5 @@
 library(shiny)
+ipcba <- read.csv("IPCBA_.csv", stringsAsFactors=FALSE)
 
 # Define UI for dataset viewer app ----
 ui <- fluidPage(
@@ -15,7 +16,7 @@ ui <- fluidPage(
       # Input: Selector for choosing dataset ----
       selectInput(inputId = "dataset",
                   label = "Choose a dataset:",
-                  choices = c("rock", "pressure", "cars")),
+                  choices = c("rock", "pressure", "cars", "ipcba")),
 
       # Input: Numeric entry for number of obs to view ----
       numericInput(inputId = "obs",
@@ -44,7 +45,8 @@ server <- function(input, output) {
     switch(input$dataset,
            "rock" = rock,
            "pressure" = pressure,
-           "cars" = cars)
+           "cars" = cars,
+           "ipcba" = ipcba)
   })
 
   # Generate a summary of the dataset ----
