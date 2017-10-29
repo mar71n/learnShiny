@@ -31,7 +31,10 @@ ui <- fluidPage(
       verbatimTextOutput("summary"),
 
       # Output: HTML table with requested number of observations ----
-      tableOutput("view")
+      tableOutput("view"),
+
+      # Output: Histogram ----
+       plotOutput("distPlot")
 
     )
   )
@@ -52,6 +55,17 @@ server <- function(input, output) {
   # Show the first "n" observations ----
   output$view <- renderTable({
     head(datasetInput(), n = input$obs)
+  })
+
+  output$distPlot <- renderPlot({
+
+    x    <- faithful$waiting
+    bins <- seq(min(x), max(x), length.out = 30)
+
+    plot(ipcba[which(ipcba$anno==input$year),]$mensual, col = "#75AADB",
+         xlab = "Waiting time to next eruption (in mins)",
+         main = "Histogram of waiting times",
+         type="h")
   })
 
 }
