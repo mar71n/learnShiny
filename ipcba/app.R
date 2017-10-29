@@ -5,7 +5,7 @@ ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
 ui <- fluidPage(
 
   # App title ----
-  titlePanel("Shiny Text"),
+  titlePanel("ipcBA"),
 
   # Sidebar layout with a input and output definitions ----
   sidebarLayout(
@@ -13,15 +13,15 @@ ui <- fluidPage(
     # Sidebar panel for inputs ----
     sidebarPanel(
 
-      # Input: Selector for choosing dataset ----
-      selectInput(inputId = "dataset",
-                  label = "Choose a dataset:",
-                  choices = c("rock", "pressure", "cars", "ipcba")),
+      # Input: Selector for choosing year ----
+      selectInput(inputId = "year",
+                  label = "Choose a year:",
+                  choices = c(2013:2017)),
 
       # Input: Numeric entry for number of obs to view ----
       numericInput(inputId = "obs",
                    label = "Number of observations to view:",
-                   value = 10)
+                   value = 12)
     ),
 
     # Main panel for displaying outputs ----
@@ -41,13 +41,7 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   # Return the requested dataset ----
-  datasetInput <- reactive({
-    switch(input$dataset,
-           "rock" = rock,
-           "pressure" = pressure,
-           "cars" = cars,
-           "ipcba" = ipcba)
-  })
+  datasetInput <- reactive({ipcba[which(ipcba$anno==input$year),]})
 
   # Generate a summary of the dataset ----
   output$summary <- renderPrint({
@@ -64,3 +58,4 @@ server <- function(input, output) {
 
 # Create Shiny app ----
 shinyApp(ui = ui, server = server)
+1
