@@ -62,11 +62,19 @@ server <- function(input, output) {
     x    <- faithful$waiting
     bins <- seq(min(x), max(x), length.out = 30)
 
-    barplot(ipcba[which(ipcba$anno==input$year),]$mensual, col = "#75AADB",
+    ipcba <- ipcba[which(ipcba$anno==input$year),]
+    tt <- nrow(ipcba)
+    ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
+    ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
+    ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
+
+    barplot(ipcba$mensual, col = "#75AADB",
          xlab = "% mensual",
          main = "ipcBA",
          ylim = c(-2,40),
          names = ipcba[which(ipcba$anno==input$year),]$mes)
+    par(new=TRUE)
+    plot(ipcba$ipcba_acu, ylim = c(-2,40))
   })
 
 }
