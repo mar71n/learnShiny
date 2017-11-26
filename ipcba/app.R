@@ -44,7 +44,13 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   # Return the requested dataset ----
-  datasetInput <- reactive({ipcba[which(ipcba$anno==input$year),]})
+  datasetInput <- reactive({
+    ipcba <- ipcba[which(ipcba$anno==input$year),]
+    tt <- nrow(ipcba)
+    ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
+    ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
+    ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
+   })
 
   # Generate a summary of the dataset ----
   output$summary <- renderPrint({
@@ -59,8 +65,8 @@ server <- function(input, output) {
 
   output$distPlot <- renderPlot({
 
-    x    <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = 30)
+    #x    <- faithful$waiting
+    #bins <- seq(min(x), max(x), length.out = 30)
 
     ipcba <- ipcba[which(ipcba$anno==input$year),]
     tt <- nrow(ipcba)
@@ -74,11 +80,12 @@ server <- function(input, output) {
          ylim = c(-2,40),
          names = ipcba[which(ipcba$anno==input$year),]$mes)
     par(new=TRUE)
-    plot(ipcba$ipcba_acu, ylim = c(-2,40))
+    plot(ipcba$ipcba_acu, ylim = c(-2.5,40), ylab="", xlab="", axes=FALSE, type="l", lwd=3)
   })
 
 }
 
 # Create Shiny app ----
 shinyApp(ui = ui, server = server)
-1
+
+    
