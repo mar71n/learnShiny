@@ -21,7 +21,8 @@ ui <- fluidPage(
       # Input: Numeric entry for number of obs to view ----
       numericInput(inputId = "obs",
                    label = "Number of observations to view:",
-                   value = 12)
+                   min=1, max=12,
+                   value = 3)
     ),
 
     # Main panel for displaying outputs ----
@@ -50,6 +51,7 @@ server <- function(input, output) {
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
     ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
+    ipcba[["mensual"]]
    })
 
   # Generate a summary of the dataset ----
@@ -73,14 +75,17 @@ server <- function(input, output) {
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
     ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
+    meses <- c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic")
 
-    barplot(ipcba$mensual, col = "#75AADB",
-         xlab = "% mensual",
-         main = "ipcBA",
-         ylim = c(-2,40),
-         names = ipcba[which(ipcba$anno==input$year),]$mes)
+    plot(ipcba$mensual, col = "#75AADB",
+         xlab = "meses",
+         ylab = "% mensual y acumulado",
+         main = paste("ipcBA ", input$year),
+         ylim = c(-2,42), type="h", lwd=35, lend=1, axes=TRUE)
     par(new=TRUE)
-    plot(ipcba$ipcba_acu, ylim = c(-2.5,40), ylab="", xlab="", axes=FALSE, type="l", lwd=3)
+    plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5)
+    text(c(1:12),1,ipcba$mensual)
+    text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
   })
 
 }
