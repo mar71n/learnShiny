@@ -1,3 +1,4 @@
+install.packages("shiny")
 library(shiny)
 runExample("01_hello")      # a histogram
 runExample("02_text")       # tables and data frames

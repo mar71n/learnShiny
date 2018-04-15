@@ -16,7 +16,7 @@ ui <- fluidPage(
       # Input: Selector for choosing year ----
       selectInput(inputId = "year",
                   label = "Choose a year:",
-                  choices = c(2013:2017)),
+                  choices = c(2013:2018)),
 
       # Input: Numeric entry for number of obs to view ----
       numericInput(inputId = "obs",
