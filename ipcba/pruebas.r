@@ -1,5 +1,6 @@
 ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
-    ipcba <- ipcba[which(ipcba$anno==2017),]
+ipcba <- edit(ipcba)
+    ipcba <- ipcba[which(ipcba$anno==2018),]
     tt <- nrow(ipcba)
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
