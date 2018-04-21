@@ -75,17 +75,17 @@ server <- function(input, output) {
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
     ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
-    meses <- c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic")
 
     plot(ipcba$mensual, col = "#75AADB",
          xlab = "meses",
          ylab = "% mensual y acumulado",
          main = paste("ipcBA ", input$year),
-         ylim = c(-2,42), type="h", lwd=35, lend=1, axes=TRUE)
+         ylim = c(-2,42), type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
     plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5)
-    text(c(1:12),1,ipcba$mensual)
+    text(c(1:length(ipcba$mensual)),1,ipcba$mensual)
     text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
+    axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3)) 
   })
 
 }
