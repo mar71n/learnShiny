@@ -85,11 +85,11 @@ server <- function(input, output) {
          main = paste("ipcBA ", input$year, "\n"),
          ylim = c(-2,42), type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
-    plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5)
+    plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5, col = "#FF0000")
     text(c(1:length(ipcba$mensual)),1,ipcba$mensual)
     text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
     axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3))
-    axis(3, at=1:length(ipcba[["anno"]]) , labels=substr(ipcba[["anno"]],1,4))
+    axis(1, at=1:length(ipcba[["anno"]]) , labels=substr(ipcba[["anno"]],1,4), outer=FALSE, pos = c(-5.5,0), tick = FALSE)
   })
 
 }

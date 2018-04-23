@@ -14,10 +14,10 @@ ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
          main = "ipcBA\n",
          ylim = c(-2,42),type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
-    plot(gipcba[["ipcba_acu"]] , ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5)
+    plot(gipcba[["ipcba_acu"]] , ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5, col = "#FF0000")
     text(c(1:length(gipcba$mensual)),1,gipcba$mensual)
     text(c(1:length(gipcba[["ipcba_acu"]])),gipcba$ipcba_acu+2,round(gipcba$ipcba_acu, digits=1))
-    axis(1, at=1:length(gipcba[["mes"]]) , labels=substr(gipcba[["mes"]],1,3)) 
-    axis(3, at=1:length(gipcba[["anno"]]) , labels=substr(gipcba[["anno"]],1,4), outer=FALSE) 
+    axis(1, at=1:length(gipcba[["mes"]]) , labels=substr(gipcba[["mes"]],1,3))
+    axis(1, at=1:length(gipcba[["anno"]]) , labels=substr(gipcba[["anno"]],1,4), outer=FALSE, pos = c(-5.5,0), tick = FALSE) 
 
 
