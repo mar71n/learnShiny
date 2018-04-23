@@ -19,5 +19,8 @@ ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
     text(c(1:length(gipcba[["ipcba_acu"]])),gipcba$ipcba_acu+2,round(gipcba$ipcba_acu, digits=1))
     axis(1, at=1:length(gipcba[["mes"]]) , labels=substr(gipcba[["mes"]],1,3))
     axis(1, at=1:length(gipcba[["anno"]]) , labels=substr(gipcba[["anno"]],1,4), outer=FALSE, pos = c(-5.5,0), tick = FALSE) 
+    axis(2, at=1:42 , labels=rep("",42), lty = 3)
+    axis(3, at=1:length(gipcba[["anno"]]) , labels=rep("",length(gipcba[["anno"]])), lty = 3)
+    axis(4, at=1:42 , labels=rep("",42), lty = 3)
 
 

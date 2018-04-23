@@ -90,6 +90,9 @@ server <- function(input, output) {
     text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
     axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3))
     axis(1, at=1:length(ipcba[["anno"]]) , labels=substr(ipcba[["anno"]],1,4), outer=FALSE, pos = c(-5.5,0), tick = FALSE)
+    axis(2, at=1:42 , labels=rep("",42), lty = 3)
+    axis(3, at=1:length(ipcba[["anno"]]) , labels=rep("",length(ipcba[["anno"]])), lty = 3)
+    axis(4, at=1:42 , labels=rep("",42), lty = 3)
   })
 
 }
