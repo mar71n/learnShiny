@@ -93,6 +93,9 @@ server <- function(input, output) {
     axis(2, at=1:42 , labels=rep("",42), lty = 3)
     axis(3, at=1:length(ipcba[["anno"]]) , labels=rep("",length(ipcba[["anno"]])), lty = 3)
     axis(4, at=1:42 , labels=rep("",42), lty = 3)
+    par(adj = 0)
+    title(sub = "Fuente: DGEyC")
+    par(adj = 0.5)
   })
 
 }
