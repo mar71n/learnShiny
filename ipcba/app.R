@@ -16,7 +16,7 @@ ui <- fluidPage(
       # Input: Selector for choosing year ----
       selectInput(inputId = "year",
                   label = "Choose a year:",
-                  choices = c(2013:2018)),
+                  choices = c(2013:2018,"Ultimos 12 meses")),
 
       # Input: Numeric entry for number of obs to view ----
       numericInput(inputId = "obs",
@@ -69,8 +69,11 @@ server <- function(input, output) {
 
     #x    <- faithful$waiting
     #bins <- seq(min(x), max(x), length.out = 30)
-
-    ipcba <- ipcba[which(ipcba$anno==input$year),]
+    if(input$year == "Ultimos 12 meses"){
+      ipcba <- tail(ipcba[ !is.na(ipcba[["ipcba"]]), ], n=12L)
+    }else{
+      ipcba <- ipcba[which(ipcba$anno==input$year),]
+    }
     tt <- nrow(ipcba)
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
@@ -79,13 +82,14 @@ server <- function(input, output) {
     plot(ipcba$mensual, col = "#75AADB",
          xlab = "meses",
          ylab = "% mensual y acumulado",
-         main = paste("ipcBA ", input$year),
+         main = paste("ipcBA ", input$year, "\n"),
          ylim = c(-2,42), type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
     plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5)
     text(c(1:length(ipcba$mensual)),1,ipcba$mensual)
     text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
-    axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3)) 
+    axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3))
+    axis(3, at=1:length(ipcba[["anno"]]) , labels=substr(ipcba[["anno"]],1,4))
   })
 
 }
