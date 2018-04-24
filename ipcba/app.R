@@ -86,8 +86,8 @@ server <- function(input, output) {
          ylim = c(-2,42), type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
     plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5, col = "#FF0000")
-    text(c(1:length(ipcba$mensual)),1,ipcba$mensual)
-    text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1))
+    text(c(1:length(ipcba$mensual)),1,ipcba$mensual, cex = 1.2)
+    text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1), cex = 1.2)
     axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3))
     axis(1, at=1:length(ipcba[["anno"]]) , labels=substr(ipcba[["anno"]],1,4), outer=FALSE, pos = c(-5.5,0), tick = FALSE)
     axis(2, at=1:42 , labels=rep("",42), lty = 3)
@@ -96,6 +96,8 @@ server <- function(input, output) {
     par(adj = 0)
     title(sub = "Fuente: DGEyC")
     par(adj = 0.5)
+    box(lty=1)
+    legend(1, 42, c("Mensual","Acumulado"),  col=c("#75AADB","red"), lty=c(1,1), lwd = c(8,8), bg = "#FFFFFF");
   })
 
 }
