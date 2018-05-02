@@ -97,8 +97,8 @@ server <- function(input, output) {
     title(sub = "Fuente: DGEyC")
     par(adj = 0.5)
     box(lty=1)
-    legend(1, 42, c("Mensual","Acumulado"),  col=c("#75AADB","red"), lty=c(1,1), lwd = c(8,8), bg = "#FFFFFF");
-  })
+    legend(1, 42, c("Mensual","Acumulado"),  col=c("#75AADB","red"), lty=c(1,1), lwd = c(8,8), bg = "#FFFFFF")
+  }, width=700, height= 500)
 
 }
 
