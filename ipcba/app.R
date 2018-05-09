@@ -86,6 +86,7 @@ server <- function(input, output) {
          ylim = c(-2,42), type="h", lwd=35, lend=1, axes=FALSE)
     par(new=TRUE)
     plot(ipcba$ipcba_acu, ylim = c(-2,42), ylab="", xlab="", axes=FALSE, type="l", lwd=5, col = "#FF0000")
+    grid()
     text(c(1:length(ipcba$mensual)),1,ipcba$mensual, cex = 1.2)
     text(c(1:12),ipcba$ipcba_acu+2,round(ipcba$ipcba_acu, digits=1), cex = 1.2)
     axis(1, at=1:length(ipcba[["mes"]]) , labels=substr(ipcba[["mes"]],1,3))
