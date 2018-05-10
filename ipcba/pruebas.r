@@ -7,6 +7,10 @@ ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
     gipcba["ipcba_ant"] <- gipcba[["ipcba"]]/(1 + gipcba[["mensual"]] / 100)
     gipcba["ipcba_ini"] <- rep(gipcba[1,"ipcba_ant"],tt)
     gipcba["ipcba_acu"] <- (gipcba[["ipcba"]] - gipcba[["ipcba_ini"]]) / gipcba[["ipcba_ini"]] * 100
+    max(gipcba$mensual, na.rm = TRUE)
+    max(gipcba[["ipcba_acu"]], na.rm = TRUE) * 1.17
+    max(c(max(gipcba$mensual, na.rm = TRUE), max(gipcba[["ipcba_acu"]], na.rm = TRUE))) * 1.17
+    min(c(min(gipcba$mensual, na.rm = TRUE), min(gipcba[["ipcba_acu"]], na.rm = TRUE)))
 
    plot(gipcba$mensual, col = "#75AADB",
          xlab = "meses",
@@ -18,7 +22,7 @@ ipcba <- read.csv("../datasets/IPCBA_.csv", stringsAsFactors=FALSE)
     text(c(1:length(gipcba$mensual)),1,gipcba$mensual, cex = 1.2)
     text(c(1:length(gipcba[["ipcba_acu"]])),gipcba$ipcba_acu+2,round(gipcba$ipcba_acu, digits=1), cex = 1.2)
     axis(1, at=1:length(gipcba[["mes"]]) , labels=substr(gipcba[["mes"]],1,3))
-    axis(1, at=1:length(gipcba[["anno"]]) , labels=substr(gipcba[["anno"]],1,4), outer=TRUE, pos = c(-5.5,0), tick = FALSE) 
+    axis(1, at=1:length(gipcba[["anno"]]) , labels=paste("\n",substr(gipcba[["anno"]],1,4)), outer=TRUE, pos = c(-5.5,0), tick = FALSE)
     axis(2, at=1:42 , labels=rep("",42), lty = 3)
     axis(3, at=1:length(gipcba[["anno"]]) , labels=rep("",length(gipcba[["anno"]])), lty = 3)
     axis(4, at=1:42 , labels=rep("",42), lty = 3)
