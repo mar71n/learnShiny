@@ -78,7 +78,7 @@ server <- function(input, output) {
     ipcba["ipcba_ant"] <- ipcba[["ipcba"]]/(1 + ipcba[["mensual"]] / 100)
     ipcba["ipcba_ini"] <- rep(ipcba[1,"ipcba_ant"],tt)
     ipcba["ipcba_acu"] <- (ipcba[["ipcba"]] - ipcba[["ipcba_ini"]]) / ipcba[["ipcba_ini"]] * 100
-    maxylim = max(c(max(ipcba$mensual, na.rm = TRUE), max(ipcba[["ipcba_acu"]], na.rm = TRUE))) * 1.17
+    maxylim = max(c(max(ipcba$mensual, na.rm = TRUE), max(ipcba[["ipcba_acu"]], na.rm = TRUE))) * 1.3
     minylim = min(c(min(ipcba$mensual, na.rm = TRUE), min(ipcba[["ipcba_acu"]], na.rm = TRUE)))
     if (minylim > 0) minylim <- 0
 
